@@ -90,6 +90,7 @@ int main()
     //input file name
     cout<<"input file name: "<<endl;
     char name[100];
+    for(int i=0;i<100;i++) name[i]='\0';  //new add
     {
         int i=0;
         char temp;
@@ -129,6 +130,7 @@ int main()
             col=0;
             row++;
             totalrow++;
+            totalcol++;              //new add
         }
         else if(temp=='|')
         {
@@ -141,11 +143,37 @@ int main()
             totalval++;
         }
 
+    }//while end
+
+    /*******************new many digit situation******************/
+    for(int p=0;p<matrixaLength;p++){
+    for(int q=1;q<matrixaLength-1;q++)
+    {
+        if(matrixa[q].row==matrixa[q+1].row&&matrixa[q].col==matrixa[q+1].col)
+        {
+            matrixa[q].val=matrixa[q].val*10+matrixa[q+1].val;
+            matrixa[q+1]=e(-1, -1, 0);
+        }
     }
+    for(int q=0;q<matrixaLength;q++)
+    {
+        if(matrixa[q].row==-1)
+        {
+            for(int w=q;w<matrixaLength-1;w++)
+            {
+                matrixa[w]=matrixa[w+1];
+            }
+            matrixaLength--;
+            totalval--;
+        }
+    }
+    }//for p end
+
+    /****************new many digit situation-end********************/
+
     matrixa[0]=e(totalrow, totalcol/(totalrow), totalval);
 
-    ifs.get(temp);
-    ifs.get(temp);
+    ifs.get(temp); //delete one line "ifs.get(temp);"
     col=0;
     totalcol=0;
     totalrow=0;
@@ -163,6 +191,7 @@ int main()
             col=0;
             row++;
             totalrow++;
+            totalcol++;              //new add
         }
         else if(temp=='|')
         {
@@ -175,8 +204,34 @@ int main()
             totalval++;
         }
 
+    }// while end
+
+    /*******************new many digit situation******************/
+    for(int p=0;p<matrixbLength;p++){
+    for(int q=1;q<matrixbLength-1;q++)
+    {
+        if(matrixb[q].row==matrixb[q+1].row&&matrixb[q].col==matrixb[q+1].col)
+        {
+            matrixb[q].val=matrixb[q].val*10+matrixb[q+1].val;
+            matrixb[q+1]=e(-1, -1, 0);
+        }
     }
-    matrixb[0]=e(totalrow+1, totalcol/(totalrow+1), totalval);
+    for(int q=0;q<matrixbLength;q++)
+    {
+        if(matrixb[q].row==-1)
+        {
+            for(int w=q;w<matrixbLength-1;w++)
+            {
+                matrixb[w]=matrixb[w+1];
+            }
+            matrixbLength--;
+            totalval--;
+        }
+    }
+    }//for p end
+    /****************new many digit situation-end********************/
+
+    matrixb[0]=e(totalrow+1, (totalcol+1)/(totalrow+1), totalval);
 
     cout<<"A \n";
     for(int i=0;i<matrixaLength;i++)
